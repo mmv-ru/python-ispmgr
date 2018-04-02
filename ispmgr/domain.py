@@ -29,12 +29,7 @@ class Domain(api.API):
             self.params['elid'] = domain
         else:
             self.params['func'] = 'domain'
-        data = self.process_api(self.url, self.params)
-        out = minidom.parse(data)
-        print out.toprettyxml()
-        if out.getElementsByTagName('error'):
-            raise RuntimeError('Error:{} {}'.format(out.getElementsByTagName('error')[0].attributes["code"].value,
-                                                    out.getElementsByTagName('error')[0].firstChild.nodeValue))
+        out = self.process_api(self.url, self.params)
         try:
             return list(map(lambda x: dict(map(lambda y: (y, x.getElementsByTagName(y)[0].firstChild.nodeValue),
                            ['name', 'dispname'])),
@@ -48,12 +43,7 @@ class Domain(api.API):
         self._clear_params()
         self.params['func'] = 'domain.sublist'
         self.params['elid'] = domain
-        data = self.process_api(self.url, self.params)
-        out = minidom.parse(data)
-        print out.toprettyxml()
-        if out.getElementsByTagName('error'):
-            raise RuntimeError('Error:{} {}'.format(out.getElementsByTagName('error')[0].attributes["code"].value,
-                                                    out.getElementsByTagName('error')[0].firstChild.nodeValue))
+        out = self.process_api(self.url, self.params)
         try:
             return list(map(lambda x: dict(map(lambda y: (y, x.getElementsByTagName(y)[0].firstChild.nodeValue),
                            ['key', 'name', 'type', 'addr'])),
