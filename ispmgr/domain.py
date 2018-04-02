@@ -95,16 +95,6 @@ class Domain(api.API):
     def delete_confirm(self, domain, **kwargs):
         raise NotImplementedError
 
-    def plain(self, domain, **kwargs):
-        """View apache/nginx configs"""
-        self._clear_params()
-        self.params['func'] = 'wwwdomain.plain'
-        self.params['elid'] = domain
-
-        data = self.process_api(self.url, self.params)
-        out = json.load(data)
-        return out
-
     def enable(self, domain, **kwargs):
         """Enable domain."""
         raise NotImplementedError
