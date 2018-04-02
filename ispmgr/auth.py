@@ -1,5 +1,6 @@
 import urllib, urllib2
 from xml.dom import minidom
+import logging
 
 class Auth(object):
     """Authorize user against ISPManager instance."""
@@ -17,7 +18,7 @@ class Auth(object):
         })
         data = urllib2.urlopen("%s?%s" % (self.url, params))
         out = minidom.parse(data)
-        print out.toprettyxml()
+        logging.debug('API reply: {}'.format(out.toprettyxml()))
         
         if out.getElementsByTagName('authfail'):
             raise RuntimeError('Authorization error, check your credentials')
