@@ -26,3 +26,4 @@ pip-log.txt
 .*.swp
 ~*
 tests
+/ispmgr/.domain.py.kate-swp
