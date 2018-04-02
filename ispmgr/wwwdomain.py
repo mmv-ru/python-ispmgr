@@ -1,5 +1,6 @@
 import json
 import api
+from xml.dom import minidom
 
 class WWWDomain(api.API):
 
@@ -7,7 +8,7 @@ class WWWDomain(api.API):
         self.url = auth_handler.url
         self.sessid = auth_handler.sessid
         self.func = 'wwwdomain.edit'
-        self.out = 'json'
+        self.out = 'xml'
         self._clear_params()
 
     def _clear_params(self):
@@ -17,7 +18,7 @@ class WWWDomain(api.API):
             pass
         self.params = {
             'auth' : self.sessid,
-            'out'  : 'json',
+            'out'  : 'xml',
             'func' : self.func,
         }
 
@@ -29,9 +30,13 @@ class WWWDomain(api.API):
         else:
             self.params['func'] = 'wwwdomain'
         data = self.process_api(self.url, self.params)
-        out = json.load(data)
+        out = minidom.parse(data)
+        print out.toprettyxml()
+        if out.getElementsByTagName('error'):
+            raise RuntimeError('Error:{} {}'.format(out.getElementsByTagName('error')[0].attributes["code"].value,
+                                                    out.getElementsByTagName('error')[0].firstChild.nodeValue))
         try:
-            return out['elem']
+            return out.getElementsByTagName('elem')[0].firstChild.nodeValue
         except KeyError:
             return out
 

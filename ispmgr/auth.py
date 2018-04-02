@@ -1,5 +1,5 @@
 import urllib, urllib2
-import json
+from xml.dom import minidom
 
 class Auth(object):
     """Authorize user against ISPManager instance."""
@@ -11,30 +11,31 @@ class Auth(object):
     def authorize(self, username, password):
         params = urllib.urlencode({
             'func': 'auth',
-            'out': 'json',
+            'out': 'xml',
             'username': username,
             'password': password,
         })
         data = urllib2.urlopen("%s?%s" % (self.url, params))
-        out = json.load(data)
-
-        if out.has_key('authfail'):
+        out = minidom.parse(data)
+        print out.toprettyxml()
+        
+        if out.getElementsByTagName('authfail'):
             raise RuntimeError('Authorization error, check your credentials')
 
-        return out['auth']
+        return out.getElementsByTagName('auth')[0].firstChild.nodeValue
 
     def logout(self):
         params = urllib.urlencode({
             'auth' : self.sessid,
             'func' : 'session.delete',
-            'out' : 'json',
+            'out' : 'xml',
             'elid' : self.sessid,
         })
 
         data = urllib2.urlopen('%s?%s' % (self.url, params))
-        out = json.load(data)
+        out = minidom.parse(data)
 
-        if out["result"] == "OK":
+        if out.getElementsByTagName("result") == "OK":
             return True
         else:
             raise RuntimeError('Logout failed!')
