@@ -47,6 +47,7 @@ class Domain(api.API):
                            out.getElementsByTagName('elem')
                            ))
         except KeyError:
+            logging.error('parsing API reply: {}'.format(out.toprettyxml()))
             return out
 
     def add(self, domain,  owner, admin, ip, **kwargs):
