@@ -84,6 +84,7 @@ class Domain(api.API):
         port - Порт.         """
         
         self._clear_params()
+        self.params['sok']  = 'yes'
         self.params['func'] = 'domain.sublist.edit'
         self.params['plid'] = domain
         self.params['elid'] = key
