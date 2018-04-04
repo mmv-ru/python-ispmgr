@@ -22,13 +22,10 @@ class Domain(api.API):
             'func' : self.func,
         }
 
-    def domains(self, domain=None):
+    def domains(self):
         """List all domains."""
         self._clear_params()
-        if domain:
-            self.params['elid'] = domain
-        else:
-            self.params['func'] = 'domain'
+        self.params['func'] = 'domain'
         out = self.process_api(self.url, self.params)
         try:
             return list(map(lambda x: dict(map(lambda y: (y, x.getElementsByTagName(y)[0].firstChild.nodeValue),
