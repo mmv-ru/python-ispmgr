@@ -45,8 +45,8 @@ class Domain(api.API):
         self.params['elid'] = domain
         out = self.process_api(self.url, self.params)
         try:
-            return list(map(lambda x: dict(map(lambda y: (y, x.getElementsByTagName(y)[0].firstChild.nodeValue),
-                           ['key', 'name', 'type', 'addr'])),
+            return list(map(lambda x: dict(map(lambda k: (k, x.getElementsByTagName(k)[0].firstChild.nodeValue),
+                           filter(lambda v: x.getElementsByTagName(v) , ['key', 'name', 'type', 'addr', 'prio', 'wght', 'port']))),
                            out.getElementsByTagName('elem')
                            ))
         except KeyError:
