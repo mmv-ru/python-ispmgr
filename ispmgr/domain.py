@@ -23,7 +23,7 @@ class Domain(api.API):
         }
 
     def domains(self, domain=None):
-        """List all www domains. If domains is used, list details about this one."""
+        """List all domains."""
         self._clear_params()
         if domain:
             self.params['elid'] = domain
@@ -39,7 +39,7 @@ class Domain(api.API):
             return out
 
     def records(self, domain):
-        """List all www domains. If domains is used, list details about this one."""
+        """List all records for domains."""
         self._clear_params()
         self.params['func'] = 'domain.sublist'
         self.params['elid'] = domain
