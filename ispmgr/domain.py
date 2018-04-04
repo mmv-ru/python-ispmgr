@@ -53,7 +53,7 @@ class Domain(api.API):
             logging.error('parsing API reply: {}'.format(out.toprettyxml()))
             return out
 
-    def record.edit(self, domain, key, **kwargs):
+    def record_edit(self, domain, key, **kwargs):
         """Edit domain record.
         name - Имя.
         sdtype - Тип. 
