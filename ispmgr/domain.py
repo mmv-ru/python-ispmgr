@@ -92,15 +92,7 @@ class Domain(api.API):
             self.params[key] = kwargs[key]
         
         out = self.process_api(self.url, self.params)
-        try:
-            return list(map(lambda x: dict(map(lambda k: (k, x.getElementsByTagName(k)[0].firstChild.nodeValue),
-                           filter(lambda v: x.getElementsByTagName(v) , ['key', 'name', 'type', 'addr', 'prio', 'wght', 'port']))),
-                           out.getElementsByTagName('elem')
-                           ))
-        except KeyError:
-            logging.error('parsing API reply: {}'.format(out.toprettyxml()))
-            return out
-
+ 
 
     #def add(self, domain,  owner, admin, ip, **kwargs):
         #"""Add a new wwwdomain to configuration. If a DNS server is configurated, API adds
