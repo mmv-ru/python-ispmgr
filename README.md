@@ -1,10 +1,8 @@
 # Forked abandone project
 
-Changed from json (not supported on my ISPmanager instance) to xml
-
-Add domains class to manage DNS records.
-
-Look like my instance is ISPmanager 4 (no admin access, only Web and WebAPI available and only DNS domains section)
+* Changed from json (not supported on my ISPmanager instance) to xml
+* Add domains class to manage DNS records.
+* Look like my instance is ISPmanager 4 (no admin access, only Web and WebAPI available and only DNS domains section)
 
 # ISPManager API Interface for Server Administrator
 
